@@ -17,7 +17,7 @@ public class Sorting {
     private static final int SORT_INCREMENT = 10000;
 
     /** Total number of values to try. */
-    private static final int TOTAL_SORT_VALUES = 100;
+    private static final int TOTAL_SORT_VALUES = 20;
 
     /** Total data size. */
     private static final int TOTAL_INTEGER_VALUES = 1000000;
@@ -29,7 +29,19 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] bubbleSort(final int[] array) {
-        return null;
+        boolean swapped = true;
+        while (swapped) {
+            swapped = false;
+            for (int i = 1; i < array.length; i++) {
+                if (array[i] < array[i - 1]) {
+                    int temp = array[i];
+                    array[i] = array[i - 1];
+                    array[i - 1] = temp;
+                    swapped = true;
+                }
+            }
+        }
+        return array;
     }
 
     /**
@@ -39,7 +51,50 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] selectionSort(final int[] array) {
+        int lo = 0;
+        int hi = array.length - 1;
+        if (array.length == 1) {
+            return array;
+        }
+        if (array.length > 1) {
+            swap(array, lo, findMin(array, lo, hi));
+
+        }
         return null;
+    }
+
+    /**
+     * Swap values at given indeces.
+     *
+     * @param array input array
+     * @param lo lower index
+     * @param index index of number to be swapped
+     * @return index with values swapped
+     */
+    static int[] swap(final int[] array, final int lo, final int index) {
+        int temp = array[lo];
+        array[lo] = array[index];
+        array[index] = temp;
+        return array;
+    }
+    /**
+     * Finds the index of the lowest value.
+     *
+     * @param array input array
+     * @param lo lowest index of the array
+     * @param hi highest index of the array
+     * @return index of lowest value
+     */
+    static int findMin(final int[] array, final int lo, final int hi) {
+        int minIndex = 0;
+        for (int i = lo; i < hi; i++) {
+            if (array[i] < array[i + 1]) {
+                minIndex = i;
+            } else {
+                minIndex = i + 1;
+            }
+        }
+        return minIndex;
     }
 
     /**
@@ -49,7 +104,21 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     static int[] mergeSort(final int[] array) {
-        return null;
+        if (array.length == 1) {
+            return array;
+        } else if (array.length == 2) {
+            if (array[0] < array[1]) {
+                return array;
+            } else {
+                int temp = array[0];
+                array[0] = array[1];
+                array[1] = temp;
+                return array;
+            }
+        } else {
+            int[] sortedArray = merge(array, 0, array.length / 2, array.length - 1);
+            return sortedArray;
+        }
     }
 
     /**
@@ -79,6 +148,7 @@ public class Sorting {
         }
 
         /* TO DO: Merge left and right array here */
+
         return arr;
     }
 
